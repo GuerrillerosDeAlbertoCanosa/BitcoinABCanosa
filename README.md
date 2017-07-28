@@ -1,3 +1,6 @@
+
+![CanosaLogo](https://scontent-mad1-1.xx.fbcdn.net/v/t1.0-9/20294564_1500940859965269_6890236649147137717_n.png?oh=7e7c2eb5cf163d9139d08383b6b8b1e1&oe=59EE6DCC)
+
 Bitcoin ABCanosa.
 ===========
 
