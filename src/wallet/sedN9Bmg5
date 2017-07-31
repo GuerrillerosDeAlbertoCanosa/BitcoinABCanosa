@@ -1,0 +1,52 @@
+// Copyright (c) 2009-2010 Satoshi Nakamoto
+// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+#include "wallet/walletdb.h"
+
+#include "base58.h"
+#include "consensus/validation.h"
+#include "protocol.h"
+#include "serialize.h"
+#include "sync.h"
+#include "util.h"
+#include "utiltime.h"
+#include "validation.h" // For CheckRegularTransaction
+#include "wallet/wallet.h"
+
+#include <atomic>
+
+#include <boost/filesystem.hpp>
+#include <boost/thread.hpp>
+#include <boost/version.hpp>
+
+using namespace std;
+
+static uint64_t nAccountingEntryNumber = 0;
+
+static std::atomic<unsigned int> nWalletDBUpdateCounter;
+
+//
+// CWalletDB
+//
+
+bool CWalletDB::WriteName(const string &strAddress, const string &strName) {
+    nWalletDBUpdateCounter++;
+    return Write(make_pair(string("name"), strAddress), strName);
+}
+
+bool CWalletDB::EraseName(const string &strAddress) {
+    // This should only be used for sending addresses, never for receiving
+    // addresses, receiving addresses must always have an address book entry if
+    // they're not change return.
+    nWalletDBUpdateCounter++;
+    return Erase(make_pair(string("name"), strAddress));
+}
+
+bool CWalletDB::WritePurpose(const string &strAddress,
+                             const string &strPurpose) {
+    nWalletDBUpdateCounter++;
+    return Write(make_pair(string("purpose"), strAddress), strPurpose);
+}
+

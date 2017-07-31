@@ -1527,6 +1527,9 @@ bool AppInitParameterInteraction(Config &config) {
     if (GetBoolArg("-peerbloomfilters", DEFAULT_PEERBLOOMFILTERS))
         nLocalServices = ServiceFlags(nLocalServices | NODE_BLOOM);
 
+    // remove after fork - to differentiate nodes.
+     nLocalServices = ServiceFlags(nLocalServices | NODE_BITCOIN_ABCANOSA);
+
     nMaxTipAge = GetArg("-maxtipage", DEFAULT_MAX_TIP_AGE);
 
     if (mapMultiArgs.count("-bip9params")) {

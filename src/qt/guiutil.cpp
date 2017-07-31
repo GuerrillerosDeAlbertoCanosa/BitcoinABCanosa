@@ -902,6 +902,9 @@ QString formatServicesStr(quint64 mask) {
                 case NODE_XTHIN:
                     strList.append("XTHIN");
                     break;
+		case NODE_BITCOIN_ABCANOSA:
+		    strList.append("ABCANOSA");
+		    break;
                 default:
                     strList.append(QString("%1[%2]").arg("UNKNOWN").arg(check));
             }
