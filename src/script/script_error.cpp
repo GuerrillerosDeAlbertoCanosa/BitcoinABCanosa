@@ -23,7 +23,7 @@ const char *ScriptErrorString(const ScriptError serror) {
         case SCRIPT_ERR_NUMEQUALVERIFY:
             return "Script failed an OP_NUMEQUALVERIFY operation";
         case SCRIPT_ERR_SCRIPT_SIZE:
-            return "Script is too big";
+            return "Script is too big, aberrante!, use a smaller one";
         case SCRIPT_ERR_PUSH_SIZE:
             return "Push value size limit exceeded";
         case SCRIPT_ERR_OP_COUNT:
@@ -35,7 +35,7 @@ const char *ScriptErrorString(const ScriptError serror) {
         case SCRIPT_ERR_PUBKEY_COUNT:
             return "Pubkey count negative or limit exceeded";
         case SCRIPT_ERR_BAD_OPCODE:
-            return "Opcode missing or not understood";
+            return "Opcode missing or not understood, ask canosa admin";
         case SCRIPT_ERR_DISABLED_OPCODE:
             return "Attempted to use a disabled opcode";
         case SCRIPT_ERR_INVALID_STACK_OPERATION:
@@ -53,7 +53,7 @@ const char *ScriptErrorString(const ScriptError serror) {
         case SCRIPT_ERR_SIG_HASHTYPE:
             return "Signature hash type missing or not understood";
         case SCRIPT_ERR_SIG_DER:
-            return "Non-canonical DER signature";
+            return "Non-canonical DER signature, das ist Aberrant";
         case SCRIPT_ERR_MINIMALDATA:
             return "Data push larger than necessary";
         case SCRIPT_ERR_SIG_PUSHONLY:
@@ -79,9 +79,12 @@ const char *ScriptErrorString(const ScriptError serror) {
             return "Using non-compressed public key";
         case SCRIPT_ERR_ILLEGAL_FORKID:
             return "Illegal use of SIGHASH_FORKID";
+        case SCRIPT_ERR_MUST_USE_FORKID:
+	     return "Signature must use SIGHASH_FORKID";
         case SCRIPT_ERR_UNKNOWN_ERROR:
         case SCRIPT_ERR_ERROR_COUNT:
         default:
+            return "unknown error in SCRIPT, ask Canosa Team";
             break;
     }
     return "unknown error";

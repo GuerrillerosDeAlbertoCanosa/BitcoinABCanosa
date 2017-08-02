@@ -854,14 +854,16 @@ static bool AcceptToMemoryPoolWorker(
                              "too-long-mempool-chain", false, errString);
         }
 
-        unsigned int scriptVerifyFlags = STANDARD_SCRIPT_VERIFY_FLAGS;
+        uint32_t scriptVerifyFlags = STANDARD_SCRIPT_VERIFY_FLAGS;
         if (!Params().RequireStandard()) {
             scriptVerifyFlags =
                 GetArg("-promiscuousmempoolflags", scriptVerifyFlags);
         }
-
-        if (IsUAHFenabledForCurrentBlock(config)) {
-            scriptVerifyFlags |= SCRIPT_ENABLE_SIGHASH_FORKID;
+           const bool hasUAHF =  IsUAHFenabledForCurrentBlock(config);
+	
+	if(hasUAHF) { 
+        
+             scriptVerifyFlags |= SCRIPT_ENABLE_SIGHASH_FORKID;
         }
 
         // Check against previous transactions. This is done last to help
@@ -1834,7 +1836,7 @@ bool ConnectBlock(const Config &config, const CBlock &block,
     int64_t nBIP16SwitchTime = 1333238400;
     bool fStrictPayToScriptHash = (pindex->GetBlockTime() >= nBIP16SwitchTime);
 
-    unsigned int flags =
+    uint32_t flags =
         fStrictPayToScriptHash ? SCRIPT_VERIFY_P2SH : SCRIPT_VERIFY_NONE;
 
     // Start enforcing the DERSIG (BIP66) rule
@@ -1858,16 +1860,24 @@ bool ConnectBlock(const Config &config, const CBlock &block,
     }
 
     // If the UAHF is enabled, we start accepting replay protected txns
-    if (IsUAHFenabled(config, pindex->pprev)) {
-        flags |= SCRIPT_ENABLE_SIGHASH_FORKID;
+    const bool hasABCanosaUAHF = IsUAHFenabled(config,pindex->pprev);
+    if(hasABCanosaUAHF){
+    
+       flags |= SCRIPT_VERIFY_STRICTENC;
+       flags |= SCRIPT_ENABLE_SIGHASH_FORKID;
     }
 
     int64_t nTime2 = GetTimeMicros();
     nTimeForks += nTime2 - nTime1;
     LogPrint("bench", "    - Fork checks: %.2fms [%.2fs]\n",
              0.001 * (nTime2 - nTime1), nTimeForks * 0.000001);
+   
+     if(hasABCanosaUAHF == false && IsUAHFenabled(config,pindex)) {
+        mempool.clear();
+        std::cout << "mempool cleared cause : UAHF";
+      }
 
-    CBlockUndo blockundo;
+      CBlockUndo blockundo;
 
     CCheckQueueControl<CScriptCheck> control(
         fScriptChecks && nScriptCheckThreads ? &scriptcheckqueue : nullptr);

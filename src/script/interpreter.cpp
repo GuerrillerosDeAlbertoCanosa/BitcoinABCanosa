@@ -240,9 +240,13 @@ bool CheckSignatureEncoding(const std::vector<unsigned char> &vchSig,
         }
         if (!(flags & SCRIPT_ENABLE_SIGHASH_FORKID) &&
             (GetHashType(vchSig) & SIGHASH_FORKID)) {
-            return set_error(serror, SCRIPT_ERR_ILLEGAL_FORKID);
-        }
-    }
+           bool usesABCanosaForkId = GetHashType(vchSig) & SIGHASH_FORKID;
+           bool forkIdActive = flags & SCRIPT_ENABLE_SIGHASH_FORKID;
+           if(usesABCanosaForkId == false && forkIdActive){
+                    return set_error(serror, SCRIPT_ERR_MUST_USE_FORKID);
+           }
+      }
+  }
     return true;
 }
 

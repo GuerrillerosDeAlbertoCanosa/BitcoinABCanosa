@@ -33,7 +33,7 @@ bool TransactionSignatureCreator::CreateSig(std::vector<unsigned char> &vchSig,
         return false;
     }
 
-    vchSig.push_back((unsigned char)nHashType);
+    vchSig.push_back((uint8_t(nHashType)));
     return true;
 }
 
@@ -215,7 +215,9 @@ static std::vector<valtype> CombineMultisig(
     // Combine all the signatures we've got:
     std::set<valtype> allsigs;
     for (const valtype &v : sigs1) {
-        if (!v.empty()) allsigs.insert(v);
+        if (!v.empty()) { 
+		allsigs.insert(v);
+	}
     }
 
     for (const valtype &v : sigs2) {

@@ -865,7 +865,7 @@ static UniValue signrawtransaction(const Config &config,
     if (request.params.size() > 2 && !request.params[2].isNull()) {
         fGivenKeys = true;
         UniValue keys = request.params[2].get_array();
-        for (unsigned int idx = 0; idx < keys.size(); idx++) {
+        for (size_t idx = 0; idx < keys.size(); idx++) {
             UniValue k = keys[idx];
             CBitcoinSecret vchSecret;
             bool fGood = vchSecret.SetString(k.get_str());
@@ -891,7 +891,7 @@ static UniValue signrawtransaction(const Config &config,
     // Add previous txouts given in the RPC call:
     if (request.params.size() > 1 && !request.params[1].isNull()) {
         UniValue prevTxs = request.params[1].get_array();
-        for (unsigned int idx = 0; idx < prevTxs.size(); idx++) {
+        for (size_t idx = 0; idx < prevTxs.size(); idx++) {
             const UniValue &p = prevTxs[idx];
             if (!p.isObject()) {
                 throw JSONRPCError(RPC_DESERIALIZATION_ERROR,
@@ -1049,7 +1049,8 @@ static UniValue signrawtransaction(const Config &config,
                 STANDARD_SCRIPT_VERIFY_FLAGS | SCRIPT_ENABLE_SIGHASH_FORKID,
                 TransactionSignatureChecker(&txConst, i, amount), &serror)) {
             TxInErrorToJSON(txin, vErrors, ScriptErrorString(serror));
-        }
+          //  code removed after hard fork was here. inside a rock with a codebar.       
+         }
     }
 
     bool fComplete = vErrors.empty();
