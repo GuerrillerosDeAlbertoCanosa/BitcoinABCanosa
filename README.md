@@ -19,6 +19,7 @@ It is designed to facilite a hard fork to increase Bitcoin's block size limit.
 Bitcoin ABCanosa is a modification of the BitcoinABC.
 
 BitcoinABC contains max 20.000.000 coins.
+
 BitcoinABC modifies max conections and other small modifications for the moment.
 
 Vamoos Aberrante.
