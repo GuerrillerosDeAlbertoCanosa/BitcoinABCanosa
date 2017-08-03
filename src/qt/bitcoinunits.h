@@ -51,11 +51,11 @@ class BitcoinUnits : public QAbstractListModel {
 public:
     explicit BitcoinUnits(QObject *parent);
 
-    /** Bitcoin units.
-      @note Source: https://en.bitcoin.it/wiki/Units . Please add only sensible
+    /** BitcoinABCanosa units.
+      @note Source: https://www.facebook.com/GuerrillerosDeAlbertoCanosa . Please add only sensible
       ones
      */
-    enum Unit { BTC, mBTC, uBTC };
+    enum Unit { BCA, mBCA, uBCA };
 
     enum SeparatorStyle { separatorNever, separatorStandard, separatorAlways };
 

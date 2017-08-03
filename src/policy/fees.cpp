@@ -356,7 +356,7 @@ void CBlockPolicyEstimator::processTransaction(const CTxMemPoolEntry &entry,
     }
     trackedTxs++;
 
-    // Feerates are stored and reported as BTC-per-kb:
+    // Feerates are stored and reported as BCA-per-kb:
     CFeeRate feeRate(entry.GetFee(), entry.GetTxSize());
 
     mapMemPoolTxs[txid].blockHeight = txHeight;
@@ -384,7 +384,7 @@ bool CBlockPolicyEstimator::processBlockTx(unsigned int nBlockHeight,
         return false;
     }
 
-    // Feerates are stored and reported as BTC-per-kb:
+    // Feerates are stored and reported as BCA-per-kb:
     CFeeRate feeRate(entry->GetFee(), entry->GetTxSize());
 
     feeStats.Record(blocksToConfirm, (double)feeRate.GetFeePerK());
