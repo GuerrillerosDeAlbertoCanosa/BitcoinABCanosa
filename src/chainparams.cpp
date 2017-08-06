@@ -181,7 +181,11 @@ public:
         // Amaury SÉCHET
         vSeeds.push_back(
             CDNSSeedData("deadalnix.me", "seed.deadalnix.me", true));
-
+        
+       // criptolayer.net
+        
+        vSeeds.push_back(CDNSSeedData("criptolayer.net", "seeder.criptolayer.net", true));
+        
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 0);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 5);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 128);
@@ -333,9 +337,11 @@ public:
         vSeeds.push_back(
             CDNSSeedData("bitprim.org", "testnet-seed.bitprim.org", true));
         // Amaury SÉCHET
-        vSeeds.push_back(
-            CDNSSeedData("deadalnix.me", "testnet-seed.deadalnix.me", true));
+        vSeeds.push_back(CDNSSeedData("deadalnix.me", "testnet-seed.deadalnix.me", true));
 
+	// criptolayer
+        vSeeds.push_back(CDNSSeedData("criptolayer.net", "testnet-seeder.criptolayer.net", true));
+       
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 239);

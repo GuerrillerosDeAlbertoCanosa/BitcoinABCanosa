@@ -650,6 +650,7 @@ void CTxMemPool::removeForBlock(const std::vector<CTransactionRef> &vtx,
 }
 
 void CTxMemPool::_clear() {
+    vTxHashes.clear();
     mapLinks.clear();
     mapTx.clear();
     mapNextTx.clear();
